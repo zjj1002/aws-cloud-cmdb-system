@@ -1,0 +1,8 @@
+cmdb-admin:
+  restart: unless-stopped
+  image: cmdb-admin
+  volumes:
+    - /var/log/supervisor/:/var/log/supervisor/
+    - /sys/fs/cgroup:/sys/fs/cgroup
+  ports:
+    - "8010:80"

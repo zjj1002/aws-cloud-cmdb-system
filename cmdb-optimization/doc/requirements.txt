@@ -1,0 +1,16 @@
+opssdk
+pycryptodome
+supervisor
+boto3==1.14.14
+paramiko==2.4.2
+keystoneauth1==3.4.0
+aliyun-python-sdk-alidns==2.0.17
+botocore==1.17.14
+s3transfer==0.3.0
+awscli
+detect-secrets
+cloudtracker
+pocsuite3
+python-gitlab
+pysnmp
+

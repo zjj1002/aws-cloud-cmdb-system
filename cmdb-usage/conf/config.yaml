@@ -1,0 +1,100 @@
+# AWS账号ID，
+aws_account_id: '006193425638'
+
+# AWS账单所在s3桶名称
+aws_bucket_name: "s3-000352-dbr"
+
+
+# AWS密钥配置信息
+aws_key:
+  profile_name: "huatai"
+  region_name: "cn-northwest-1"
+
+# 指定Credit的BU
+credit_bu_name: "Team"
+
+# TAG标签定义
+tag:
+  dep_tag_name: 'user:Team'
+  # 部门标签对应的中文名称
+
+# 定义文件名称
+file_name:
+  # 临时数据文件
+  tmp_data: "Tmp_data.xlsx"
+  # 日志文件
+  log: "out-%(report_month)s.log"
+  # 报表名称
+  reports: "Jnc-Report-%(report_month)s.xlsx"
+  # RI购买记录文件名
+  ri_record: "JNC-RI-RECORD-%(report_month)s.xlsx"
+  # 账单（下载到本地到）文件名
+  cloud_bill_record: "%(aws_account_id)s-aws-billing-detailed-line-items-with-resources-and-tags-ACTS-Ningxia-%(report_month)s.csv.zip"
+
+
+# 部门别称，值为部门真实名称。
+department_name_alias:
+  "wl": "wuliu"
+  "wul": "wuliu"
+  "wu liu": "wuliu"
+
+# 强制配置资源所属部门。
+resource_dep_mapping:
+    vol-xxx: test
+    vol-010a266d8c2ff6016: test
+    snap-0f1403436de773dd9: test
+    i-09607488b80fba33c: test
+    wlprdcc11pdb01: wuliu
+    testprdapiredis01-002: test
+    xxx: test
+
+# 缓存过期时间
+cache_expire_days: 30
+
+# AWS 按需运行计费表（每小时）
+aws_on_demand_price:
+
+  AmazonEC2:
+  #    - UsageType: "CNN1-HeavyUsage:r4.16xlarge"
+  #      Platform: "Linux"
+  #      Region: "cn-north-1"
+  #      Operation: "RunInstances"
+  #      OnDemandPrice: 62.746
+  ##
+
+  AmazonRDS:
+    - UsageType: "CNW1-InstanceUsage:db.m5.2xl"
+      Platform: "Oracle"
+      Region: "cn-northwest-1"
+      Operation: "CreateDBInstance:0005"
+      OnDemandPrice: 4.174
+
+    - UsageType: "CNW1-InstanceUsage:db.m5.large"
+      Platform: "Oracle"
+      Region: "cn-northwest-1"
+      Operation: "CreateDBInstance:0005"
+      OnDemandPrice: 1.044
+
+    - UsageType: "CNW1-InstanceUsage:db.t3.medium"
+      Platform: "Oracle"
+      Region: "cn-northwest-1"
+      Operation: "CreateDBInstance:0005"
+      OnDemandPrice: 0.546
+
+    - UsageType: "CNW1-InstanceUsage:db.t3.large"
+      Platform: "Oracle"
+      Region: "cn-northwest-1"
+      Operation: "CreateDBInstance:0005"
+      OnDemandPrice: 1.093
+
+    - UsageType: "CNW1-Multi-AZUsage:db.t3.medium"
+      Platform: "Oracle"
+      Region: "cn-northwest-1"
+      Operation: "CreateDBInstance:0005"
+      OnDemandPrice: 1.092
+
+
+# 税点
+Tax: 0.06
+
+Debug: False

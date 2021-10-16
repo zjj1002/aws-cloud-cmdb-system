@@ -1,0 +1,13 @@
+1736:C 09 Jun 2020 16:43:07.952 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1736:C 09 Jun 2020 16:43:07.953 # Redis version=5.0.8, bits=64, commit=00000000, modified=0, pid=1736, just started
+1736:C 09 Jun 2020 16:43:07.953 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+1736:M 09 Jun 2020 16:43:07.954 * Increased maximum number of open files to 10032 (it was originally set to 256).
+1736:M 09 Jun 2020 16:43:07.955 * Running mode=standalone, port=6379.
+1736:M 09 Jun 2020 16:43:07.955 # Server initialized
+1736:M 09 Jun 2020 16:43:07.955 * DB loaded from disk: 0.000 seconds
+1736:M 09 Jun 2020 16:43:07.955 * Ready to accept connections
+1736:signal-handler (1591692210) Received SIGINT scheduling shutdown...
+1736:M 09 Jun 2020 16:43:30.568 # User requested shutdown...
+1736:M 09 Jun 2020 16:43:30.568 * Saving the final RDB snapshot before exiting.
+1736:M 09 Jun 2020 16:43:30.572 * DB saved on disk
+1736:M 09 Jun 2020 16:43:30.572 # Redis is now ready to exit, bye bye...

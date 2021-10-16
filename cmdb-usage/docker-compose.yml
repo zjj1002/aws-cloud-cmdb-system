@@ -1,0 +1,9 @@
+cmdb_cmdb_usage:
+  restart: unless-stopped
+  image: cmdb-usage:v2
+  volumes:
+    - /var/log/supervisor/:/var/log/supervisor/
+    - /sys/fs/cgroup:/sys/fs/cgroup
+  ports:
+    - "8150:80"
+  hostname: cmdb-cmdb-usage

@@ -1,0 +1,21 @@
+1.启动容器服务
+	1）切换到root
+		# sudo su -
+	2) 进入到doc目录
+	    # cd /root/cmdb-workspace/cmdb-doc
+	3）执行启动命令
+		# docker-down up -d 
+
+2. 更新容器镜像
+	1）关闭并删除容器
+	    # docker-compose down
+	2) 更新本地镜像存储服务认证密码
+		# sh /root/update-ecr-password.sh
+	3) 更新本地cmdb-xxx镜像
+	    # docker pull 309544246384.dkr.ecr.cn-northwest-1.amazonaws.com.cn/cmdb-xxx
+	4) 启动容器服务
+		## 详见《1.启动容器服务》
+		
+3. 查看日志
+	1）目录
+		# /var/log/supervisor

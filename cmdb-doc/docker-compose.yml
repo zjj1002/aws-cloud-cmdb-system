@@ -1,0 +1,141 @@
+version: "3"
+services:
+  aws-cmdb-rabbitmq:
+    restart: unless-stopped
+    image: rabbitmq:3-management
+    env_file:
+      - aws-cmdb-mq.env
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+  aws-cmdb-mysql:
+    restart: unless-stopped
+    image: mysql:5.7
+    volumes:
+      - /data/mysql:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+    ports:
+      - "3306:3306"
+    env_file:
+      - aws-cmdb-mysql.env
+
+  aws-cmdb-redis:
+    image: redis:4
+    env_file:
+      - aws-cmdb-redis.env
+    ports:
+      - 6379:6379
+    restart: unless-stopped
+    command: redis-server --requirepass ${DEFAULT_REDIS_PASSWORD}
+    hostname: aws-cmdb-redis
+
+  aws-cmdb-frontend:
+    restart: unless-stopped
+    image: 309544246384.dkr.ecr.cn-northwest-1.amazonaws.com.cn/cmdb-frontend
+    build:
+        aws-cmdb-frontend
+    volumes:
+      - /var/log/nginx/:/var/log/nginx/
+      - /sys/fs/cgroup:/sys/fs/cgroup
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - aws-cmdb-gw
+
+  aws-cmdb-gw:
+    restart: unless-stopped
+
+    image: 309544246384.dkr.ecr.cn-northwest-1.amazonaws.com.cn/cmdb-gw
+    build:
+      aws-cmdb-gw
+    volumes:
+      - /var/log/:/var/log/
+      - /usr/local/openresty/nginx/logs/:/usr/local/openresty/nginx/logs/
+      - /sys/fs/cgroup:/sys/fs/cgroup
+    depends_on:
+      - aws-cmdb-admin
+  #
+  aws-cmdb-usage:
+    restart: unless-stopped
+    image: 309544246384.dkr.ecr.cn-northwest-1.amazonaws.com.cn/cmdb-usage
+    env_file:
+      - aws-cmdb-redis.env
+      - aws-cmdb-mq.env
+      - aws-cmdb-mysql.env
+      - aws-cmdb-boto3.env
+      - aws-cmdb-zabbix.env
+      - aws-cmdb-admin.env
+    volumes:
+      - /var/log/supervisor/:/var/log/supervisor/
+      - /sys/fs/cgroup:/sys/fs/cgroup
+      - ./cmdb-usage/conf:/var/www/cmdb-usage/conf/
+      - ./cmdb-usage/tmp:/var/www/cmdb-usage/tmp/
+      - ./cmdb-usage/reports:/var/www/cmdb-usage/reports
+    hostname: cmdb-cmdb-usage
+  #
+  aws-cmdb-admin:
+    restart: unless-stopped
+    image: 309544246384.dkr.ecr.cn-northwest-1.amazonaws.com.cn/cmdb-admin
+    env_file:
+      - aws-cmdb-redis.env
+      - aws-cmdb-mq.env
+      - aws-cmdb-mysql.env
+      - aws-cmdb-admin.env
+      - aws-cmdb-smtp.env
+
+    volumes:
+      - /var/log/supervisor/:/var/log/supervisor/
+      - /sys/fs/cgroup:/sys/fs/cgroup
+  #
+  aws-cmdb-cmdb:
+    restart: unless-stopped
+    image: 309544246384.dkr.ecr.cn-northwest-1.amazonaws.com.cn/cmdb-cmdb
+    env_file:
+      - aws-cmdb-redis.env
+      - aws-cmdb-mq.env
+      - aws-cmdb-mysql.env
+      - aws-cmdb-admin.env
+      - aws-cmdb-boto3.env
+      - aws-cmdb-zabbix.env
+
+    volumes:
+      - /var/log/supervisor/:/var/log/supervisor/
+      - /sys/fs/cgroup:/sys/fs/cgroup
+
+  aws-cmdb-compliance:
+    restart: unless-stopped
+    image: 309544246384.dkr.ecr.cn-northwest-1.amazonaws.com.cn/cmdb-compliance
+    env_file:
+      - aws-cmdb-redis.env
+      - aws-cmdb-mq.env
+      - aws-cmdb-mysql.env
+      - aws-cmdb-boto3.env
+      - aws-cmdb-zabbix.env
+      - aws-cmdb-admin.env
+    volumes:
+      - /var/log/supervisor/:/var/log/supervisor/
+      - /sys/fs/cgroup:/sys/fs/cgroup
+      - /proc:/host/proc
+    hostname: cmdb-compliance
+      - aws-cmdb-admin.env
+    privileged: true
+
+  aws-cmdb-management:
+    restart: unless-stopped
+    image: 309544246384.dkr.ecr.cn-northwest-1.amazonaws.com.cn/cmdb-management
+    env_file:
+      - aws-cmdb-redis.env
+      - aws-cmdb-mq.env
+      - aws-cmdb-mysql.env
+      - aws-cmdb-admin.env
+      - aws-cmdb-boto3.env
+      - aws-cmdb-zabbix.env
+
+    volumes:
+      - /var/log/supervisor/:/var/log/supervisor/
+      - /sys/fs/cgroup:/sys/fs/cgroup
+    hostname: cmdb-management
+      - aws-cmdb-admin.env
+

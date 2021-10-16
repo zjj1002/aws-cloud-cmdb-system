@@ -1,0 +1,8 @@
+opssdk
+pycryptodome
+boto3==1.9.5
+paramiko==2.4.2
+keystoneauth1==3.4.0
+aliyun-python-sdk-alidns==2.0.17
+opinel
+croniter

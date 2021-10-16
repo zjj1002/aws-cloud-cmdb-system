@@ -1,0 +1,11 @@
+ucloud.core
+ucloud-sdk-python3
+aliyun-python-sdk-rds
+aliyun-python-sdk-r-kvstore
+ucloud
+aliyun-python-sdk-ecs
+oss2
+aliyun-python-sdk-green==3.5.1 
+pycryptodome
+python-openstackclient
+supervisor

@@ -1,0 +1,7 @@
+athena:
+  s3_bucket: 871006737058-cloudtrail-logs
+  path: ""
+accounts:
+  - name: zjj
+    id: 871006737058
+    iam: account-data/demo_iam.json

@@ -1,0 +1,11 @@
+pip
+openpyxl
+pysqlite3
+boto3==1.14.14
+#boto3
+pyzabbix
+supervisor
+sqlalchemy
+pandas
+pandasql
+

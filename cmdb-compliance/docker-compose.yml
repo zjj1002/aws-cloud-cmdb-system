@@ -1,0 +1,9 @@
+cmdb_compliance:
+  restart: unless-stopped
+  image: cmdb_compliance:latest
+  volumes:
+    - /var/log/supervisor/:/var/log/supervisor/
+    - /sys/fs/cgroup:/sys/fs/cgroup
+  ports:
+    - "8050:80"
+  hostname: cmdb-compliance
